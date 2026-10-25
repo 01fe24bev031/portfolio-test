@@ -1,0 +1,1442 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SPI Master Interface | Project Details</title>
+
+<style>
+
+/* GENERAL */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #071426;
+    color: white;
+    line-height: 1.7;
+}
+
+/* NAVIGATION */
+
+nav {
+    background: #081a30;
+    padding: 18px 8%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    border-bottom: 1px solid rgba(0, 217, 255, 0.25);
+
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    color: #00d9ff;
+    font-size: 21px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 22px;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    color: #00d9ff;
+}
+
+/* HERO */
+
+.hero {
+    padding: 80px 8%;
+    text-align: center;
+
+    background:
+        linear-gradient(
+            rgba(4, 15, 35, 0.85),
+            rgba(4, 15, 35, 0.95)
+        );
+
+    border-bottom: 1px solid rgba(0, 217, 255, 0.2);
+}
+
+.hero-label {
+    color: #00d9ff;
+    font-size: 13px;
+    letter-spacing: 3px;
+    margin-bottom: 15px;
+}
+
+.hero h1 {
+    font-size: 48px;
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+.hero h1 span {
+    color: #00d9ff;
+}
+
+.hero p {
+    max-width: 750px;
+    margin: auto;
+    color: #b8cce0;
+    font-size: 17px;
+}
+
+/* CONTENT */
+
+.container {
+    max-width: 1150px;
+    margin: auto;
+    padding: 60px 25px;
+}
+
+.section-heading {
+    margin-bottom: 30px;
+}
+
+.section-heading h2 {
+    font-size: 30px;
+    color: white;
+}
+
+.section-heading h2 span {
+    color: #00d9ff;
+}
+
+.line {
+    width: 65px;
+    height: 4px;
+    background: #00d9ff;
+    margin-top: 12px;
+    border-radius: 5px;
+}
+
+.section-description {
+    color: #a8bfd7;
+    margin-top: 15px;
+}
+
+/* OVERVIEW */
+
+.overview {
+    background: #0a1b31;
+}
+
+.overview-box {
+    background: #10243c;
+
+    padding: 30px;
+
+    border: 1px solid rgba(0, 217, 255, 0.2);
+    border-radius: 12px;
+}
+
+.overview-box p {
+    color: #d0dfef;
+    margin-bottom: 15px;
+}
+
+.overview-box p:last-child {
+    margin-bottom: 0;
+}
+
+/* OBJECTIVES */
+
+.objectives {
+    background: #071426;
+}
+
+.objective-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.objective-card {
+    background: #10243c;
+
+    padding: 25px;
+
+    border: 1px solid rgba(0, 217, 255, 0.2);
+    border-radius: 12px;
+
+    transition: 0.3s;
+}
+
+.objective-card:hover {
+    transform: translateY(-4px);
+    border-color: #00d9ff;
+}
+
+.objective-number {
+    color: #00d9ff;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.objective-card p {
+    color: #c3d5e8;
+}
+
+/* SPI PROTOCOL */
+
+.protocol {
+    background: #0a1b31;
+}
+
+.protocol-box {
+    background: #10243c;
+
+    padding: 30px;
+
+    border-radius: 12px;
+    border: 1px solid rgba(0, 217, 255, 0.2);
+}
+
+.protocol-box p {
+    color: #d0dfef;
+    margin-bottom: 15px;
+}
+
+.protocol-list {
+    margin-left: 25px;
+    color: #c3d5e8;
+}
+
+.protocol-list li {
+    margin-bottom: 12px;
+}
+
+.signal-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.signal-card {
+    text-align: center;
+
+    padding: 20px 10px;
+
+    background: #071426;
+
+    border: 1px solid rgba(0, 217, 255, 0.2);
+    border-radius: 10px;
+}
+
+.signal-card h3 {
+    color: #00d9ff;
+    font-size: 20px;
+}
+
+.signal-card p {
+    font-size: 13px;
+    color: #a8bfd7;
+    margin-top: 8px;
+}
+
+/* ARCHITECTURE */
+
+.architecture {
+    background: #071426;
+}
+
+.architecture-box {
+    background: #10243c;
+
+    padding: 30px;
+
+    border-radius: 12px;
+    border: 1px solid rgba(0, 217, 255, 0.2);
+
+    text-align: center;
+}
+
+.architecture-flow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.flow-box {
+    width: 100%;
+    max-width: 550px;
+
+    padding: 18px;
+
+    background: #071426;
+
+    border: 1px solid #00d9ff;
+    border-radius: 8px;
+}
+
+.flow-box h3 {
+    color: #00d9ff;
+    font-size: 17px;
+}
+
+.flow-box p {
+    color: #b8cce0;
+    font-size: 14px;
+}
+
+.flow-arrow {
+    color: #00d9ff;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.architecture-note {
+    color: #9db5ce;
+    font-size: 13px;
+    margin-top: 25px;
+}
+
+/* COMPONENTS */
+
+.components {
+    background: #0a1b31;
+}
+
+.component-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.component-card {
+    background: #10243c;
+
+    padding: 25px;
+
+    border: 1px solid rgba(0, 217, 255, 0.2);
+    border-radius: 12px;
+
+    transition: 0.3s;
+}
+
+.component-card:hover {
+    transform: translateY(-4px);
+    border-color: #00d9ff;
+}
+
+.component-card h3 {
+    color: #00d9ff;
+    margin-bottom: 10px;
+}
+
+.component-card p {
+    color: #c3d5e8;
+    font-size: 14px;
+}
+
+/* WORKING PRINCIPLE */
+
+.working {
+    background: #071426;
+}
+
+.steps {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.step {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+
+    background: #10243c;
+
+    padding: 22px;
+
+    border-radius: 10px;
+    border: 1px solid rgba(0, 217, 255, 0.2);
+}
+
+.step-number {
+    min-width: 42px;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #00d9ff;
+    color: #071426;
+
+    font-weight: bold;
+    border-radius: 50%;
+}
+
+.step h3 {
+    color: #00d9ff;
+    margin-bottom: 5px;
+}
+
+.step p {
+    color: #c3d5e8;
+    font-size: 14px;
+}
+
+/* SIMULATION */
+
+.simulation {
+    background: #0a1b31;
+}
+
+.simulation-box {
+    background: #10243c;
+
+    padding: 30px;
+
+    border-radius: 12px;
+    border: 1px solid rgba(0, 217, 255, 0.2);
+}
+
+.simulation-box p {
+    color: #c3d5e8;
+    margin-bottom: 15px;
+}
+
+.simulation-list {
+    margin-left: 25px;
+    color: #c3d5e8;
+}
+
+.simulation-list li {
+    margin-bottom: 10px;
+}
+
+/* CHALLENGES */
+
+.challenges {
+    background: #071426;
+}
+
+.challenge-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.challenge-card {
+    background: #10243c;
+
+    padding: 25px;
+
+    border-radius: 12px;
+    border: 1px solid rgba(0, 217, 255, 0.2);
+}
+
+.challenge-card h3 {
+    color: #00d9ff;
+    margin-bottom: 10px;
+}
+
+.challenge-card p {
+    color: #c3d5e8;
+    font-size: 14px;
+}
+
+/* FUTURE */
+
+.future {
+    background: #0a1b31;
+}
+
+.future-box {
+    background: #10243c;
+
+    padding: 30px;
+
+    border-radius: 12px;
+    border: 1px solid rgba(0, 217, 255, 0.2);
+}
+
+.future-box ul {
+    margin-left: 25px;
+    color: #c3d5e8;
+}
+
+.future-box li {
+    margin-bottom: 12px;
+}
+
+/* NAVIGATION BUTTONS */
+
+.page-navigation {
+    background: #071426;
+
+    padding: 45px 20px;
+
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.page-button {
+    display: inline-block;
+
+    padding: 13px 28px;
+
+    border: 1px solid #00d9ff;
+    border-radius: 6px;
+
+    color: #00d9ff;
+    text-decoration: none;
+
+    font-weight: bold;
+
+    transition: 0.3s;
+}
+
+.page-button:hover {
+    background: #00d9ff;
+    color: #071426;
+}
+
+/* FOOTER */
+
+footer {
+    background: #04101f;
+
+    padding: 25px 15px;
+
+    text-align: center;
+
+    color: #8ea6bf;
+    font-size: 13px;
+
+    border-top: 1px solid rgba(0, 217, 255, 0.15);
+}
+
+footer span {
+    color: #00d9ff;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 850px) {
+
+    .hero h1 {
+        font-size: 40px;
+    }
+
+    .component-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .signal-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    nav {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    nav a {
+        margin: 0 8px;
+    }
+
+    .hero h1 {
+        font-size: 32px;
+    }
+
+    .section-heading h2 {
+        font-size: 25px;
+    }
+
+    .objective-grid,
+    .component-grid,
+    .challenge-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .signal-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .container {
+        padding: 45px 20px;
+    }
+
+    .step {
+        gap: 12px;
+        padding: 18px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+
+<nav>
+
+    <div class="logo">
+        SPI PROJECT
+    </div>
+
+    <div>
+        <a href="index.html">Home</a>
+        <a href="#overview">Overview</a>
+        <a href="#objectives">Objectives</a>
+        <a href="#protocol">SPI Protocol</a>
+    </div>
+
+</nav>
+
+
+<!-- HERO -->
+
+<header class="hero">
+
+    <div>
+
+        <div class="hero-label">
+            DIGITAL VLSI MINI PROJECT
+        </div>
+
+        <h1>
+            PROJECT<br>
+            <span>DETAILS</span>
+        </h1>
+
+        <p>
+            SPI Master Interface
+        </p>
+
+    </div>
+
+</header>
+
+
+<!-- PROJECT OVERVIEW -->
+
+<section class="overview" id="overview">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <h2>
+                Project <span>Overview</span>
+            </h2>
+
+            <div class="line"></div>
+
+        </div>
+
+        <div class="overview-box">
+
+            <p>
+                The SPI Master Interface is a Digital VLSI mini project
+                focused on understanding and implementing serial
+                communication between digital devices.
+            </p>
+
+            <p>
+                The project explores the Serial Peripheral Interface
+                (SPI) protocol, which enables synchronous data
+                communication between a master device and one or
+                more slave devices.
+            </p>
+
+            <p>
+                The design focuses on SPI communication signals,
+                clock generation, data transfer, chip selection
+                and simulation-based verification using Proteus.
+            </p>
+
+            <p>
+                The project provides practical exposure to digital
+                communication, circuit simulation and hardware
+                interface concepts.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- OBJECTIVES -->
+
+<section class="objectives" id="objectives">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <h2>
+                Project <span>Objectives</span>
+            </h2>
+
+            <div class="line"></div>
+
+            <p>
+                Key goals of the SPI Master Interface project
+            </p>
+
+        </div>
+
+        <div class="objective-grid">
+
+            <div class="objective-card">
+
+                <div class="objective-number">01</div>
+
+                <p>
+                    Understand the fundamentals of the Serial
+                    Peripheral Interface communication protocol.
+                </p>
+
+            </div>
+
+            <div class="objective-card">
+
+                <div class="objective-number">02</div>
+
+                <p>
+                    Study the operation of SPI master and
+                    slave devices.
+                </p>
+
+            </div>
+
+            <div class="objective-card">
+
+                <div class="objective-number">03</div>
+
+                <p>
+                    Understand the functions of SCLK, MOSI,
+                    MISO and chip-select signals.
+                </p>
+
+            </div>
+
+            <div class="objective-card">
+
+                <div class="objective-number">04</div>
+
+                <p>
+                    Develop a simulation-based SPI interface
+                    using Proteus.
+                </p>
+
+            </div>
+
+            <div class="objective-card">
+
+                <div class="objective-number">05</div>
+
+                <p>
+                    Observe digital signal behavior and
+                    verify communication-related operation.
+                </p>
+
+            </div>
+
+            <div class="objective-card">
+
+                <div class="objective-number">06</div>
+
+                <p>
+                    Gain practical experience in digital
+                    interface design and troubleshooting.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- SPI PROTOCOL -->
+
+<section class="protocol" id="protocol">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <h2>
+                Understanding <span>SPI Protocol</span>
+            </h2>
+
+            <div class="line"></div>
+
+            <p>
+                Serial Peripheral Interface
+            </p>
+
+        </div>
+
+        <div class="protocol-box">
+
+            <p>
+                SPI is a synchronous serial communication
+                protocol used for communication between
+                digital devices.
+            </p>
+
+            <p>
+                The master controls the communication clock
+                and selects the slave device using a
+                chip-select signal.
+            </p>
+
+            <p>
+                SPI commonly uses four communication signals:
+            </p>
+
+            <ul class="protocol-list">
+
+                <li>
+                    <strong>SCLK:</strong>
+                    Serial clock generated by the master.
+                </li>
+
+                <li>
+                    <strong>MOSI:</strong>
+                    Master Out, Slave In.
+                    Carries data from master to slave.
+                </li>
+
+                <li>
+                    <strong>MISO:</strong>
+                    Master In, Slave Out.
+                    Carries data from slave to master.
+                </li>
+
+                <li>
+                    <strong>CS / SS:</strong>
+                    Chip Select or Slave Select.
+                    Enables the selected slave device.
+                </li>
+
+            </ul>
+
+            <div class="signal-grid">
+
+                <div class="signal-card">
+
+                    <h3>SCLK</h3>
+
+                    <p>Clock Signal</p>
+
+                </div>
+
+                <div class="signal-card">
+
+                    <h3>MOSI</h3>
+
+                    <p>Master to Slave</p>
+
+                </div>
+
+                <div class="signal-card">
+
+                    <h3>MISO</h3>
+
+                    <p>Slave to Master</p>
+
+                </div>
+
+                <div class="signal-card">
+
+                    <h3>CS</h3>
+
+                    <p>Device Selection</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- SYSTEM ARCHITECTURE -->
+
+<section class="architecture" id="architecture">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <h2>
+                System <span>Architecture</span>
+            </h2>
+
+            <div class="line"></div>
+
+            <p>
+                Basic communication structure
+            </p>
+
+        </div>
+
+        <div class="architecture-box">
+
+            <div class="architecture-flow">
+
+                <div class="flow-box">
+
+                    <h3>SPI Master</h3>
+
+                    <p>
+                        Controls communication and
+                        generates the clock.
+                    </p>
+
+                </div>
+
+                <div class="flow-arrow">
+                    ↓
+                </div>
+
+                <div class="flow-box">
+
+                    <h3>SPI Communication Signals</h3>
+
+                    <p>
+                        SCLK, MOSI, MISO and CS
+                    </p>
+
+                </div>
+
+                <div class="flow-arrow">
+                    ↓
+                </div>
+
+                <div class="flow-box">
+
+                    <h3>Slave Interface</h3>
+
+                    <p>
+                        Receives and responds to
+                        master communication.
+                    </p>
+
+                </div>
+
+                <div class="flow-arrow">
+                    ↓
+                </div>
+
+                <div class="flow-box">
+
+                    <h3>Output / Observation</h3>
+
+                    <p>
+                        Communication behavior
+                        observed through simulation.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <p class="architecture-note">
+                Conceptual architecture. Actual connections and
+                signal behavior depend on the implemented circuit.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- COMPONENTS -->
+
+<section class="components" id="components">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <h2>
+                Components and <span>Functions</span>
+            </h2>
+
+            <div class="line"></div>
+
+            <p>
+                Main elements used in the simulation
+            </p>
+
+        </div>
+
+        <div class="component-grid">
+
+            <div class="component-card">
+
+                <h3>Clock Source</h3>
+
+                <p>
+                    Provides timing pulses for observing
+                    synchronous digital operation.
+                </p>
+
+            </div>
+
+            <div class="component-card">
+
+                <h3>Logic ICs</h3>
+
+                <p>
+                    Support digital signal handling
+                    and logic operations.
+                </p>
+
+            </div>
+
+            <div class="component-card">
+
+                <h3>Switches</h3>
+
+                <p>
+                    Provide input conditions
+                    for simulation testing.
+                </p>
+
+            </div>
+
+            <div class="component-card">
+
+                <h3>LEDs</h3>
+
+                <p>
+                    Provide a visual indication
+                    of output logic states.
+                </p>
+
+            </div>
+
+            <div class="component-card">
+
+                <h3>SPI Signals</h3>
+
+                <p>
+                    Represent serial communication
+                    and device selection.
+                </p>
+
+            </div>
+
+            <div class="component-card">
+
+                <h3>Proteus</h3>
+
+                <p>
+                    Used to construct the circuit
+                    and observe simulation behavior.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- WORKING PRINCIPLE -->
+
+<section class="working" id="working">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <h2>
+                Working <span>Principle</span>
+            </h2>
+
+            <div class="line"></div>
+
+            <p>
+                Basic sequence of SPI communication
+            </p>
+
+        </div>
+
+        <div class="steps">
+
+            <div class="step">
+
+                <div class="step-number">1</div>
+
+                <div>
+
+                    <h3>Clock Generation</h3>
+
+                    <p>
+                        The master provides the clock
+                        signal required for synchronous
+                        communication.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="step">
+
+                <div class="step-number">2</div>
+
+                <div>
+
+                    <h3>Slave Selection</h3>
+
+                    <p>
+                        The master activates the
+                        appropriate chip-select signal
+                        to select a slave.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="step">
+
+                <div class="step-number">3</div>
+
+                <div>
+
+                    <h3>Data Transfer</h3>
+
+                    <p>
+                        Serial data is transferred
+                        between master and slave
+                        using MOSI and MISO.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="step">
+
+                <div class="step-number">4</div>
+
+                <div>
+
+                    <h3>Output Observation</h3>
+
+                    <p>
+                        The resulting signal behavior
+                        is observed through the
+                        simulation outputs.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- SIMULATION RESULTS -->
+
+<section class="simulation" id="simulation">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <h2>
+                Proteus <span>Simulation</span>
+            </h2>
+
+            <div class="line"></div>
+
+            <p>
+                Simulation and testing
+            </p>
+
+        </div>
+
+        <div class="simulation-box">
+
+            <p>
+                The circuit was developed and tested
+                using Proteus simulation.
+            </p>
+
+            <p>
+                Simulation was used to observe
+                clock behavior, input conditions
+                and output logic states.
+            </p>
+
+            <ul class="simulation-list">
+
+                <li>
+                    Circuit operation was examined
+                    under different input conditions.
+                </li>
+
+                <li>
+                    LED outputs were used
+                    for visual observation.
+                </li>
+
+                <li>
+                    Signal behavior was examined
+                    during simulation.
+                </li>
+
+                <li>
+                    The circuit was modified
+                    during troubleshooting.
+                </li>
+
+            </ul>
+
+            <p>
+                <strong>
+                    Note:
+                </strong>
+                The LED output demonstrates the
+                simulated logic behavior. It should
+                not be described as verified sensor
+                data unless actual sensor communication
+                has been implemented and tested.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- CHALLENGES -->
+
+<section class="challenges" id="challenges">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <h2>
+                Challenges and <span>Learning</span>
+            </h2>
+
+            <div class="line"></div>
+
+            <p>
+                Practical learning during development
+            </p>
+
+        </div>
+
+        <div class="challenge-grid">
+
+            <div class="challenge-card">
+
+                <h3>Signal Connections</h3>
+
+                <p>
+                    Understanding the relationship
+                    between clock, data and
+                    device-selection signals.
+                </p>
+
+            </div>
+
+            <div class="challenge-card">
+
+                <h3>Simulation Debugging</h3>
+
+                <p>
+                    Troubleshooting circuit behavior
+                    and identifying incorrect
+                    connections.
+                </p>
+
+            </div>
+
+            <div class="challenge-card">
+
+                <h3>Output Observation</h3>
+
+                <p>
+                    Understanding the difference
+                    between visible output behavior
+                    and actual serial data transfer.
+                </p>
+
+            </div>
+
+            <div class="challenge-card">
+
+                <h3>Protocol Understanding</h3>
+
+                <p>
+                    Learning how SPI signals
+                    coordinate synchronous
+                    communication.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FUTURE IMPROVEMENTS -->
+
+<section class="future" id="future">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <h2>
+                Future <span>Improvements</span>
+            </h2>
+
+            <div class="line"></div>
+
+            <p>
+                Possible extensions of the project
+            </p>
+
+        </div>
+
+        <div class="future-box">
+
+            <ul>
+
+                <li>
+                    Implement a complete SPI master
+                    controller using Verilog HDL.
+                </li>
+
+                <li>
+                    Add configurable clock polarity
+                    and clock phase.
+                </li>
+
+                <li>
+                    Implement proper slave selection
+                    and serial data transfer.
+                </li>
+
+                <li>
+                    Integrate a compatible SPI
+                    sensor or peripheral.
+                </li>
+
+                <li>
+                    Verify communication using
+                    simulation waveforms.
+                </li>
+
+                <li>
+                    Extend the design toward
+                    FPGA implementation.
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- PAGE NAVIGATION -->
+
+<section class="page-navigation">
+
+    <a href="C:\Users\Anushka\OneDrive\Desktop\SPI portfolio\index.html.html" class="page-button">
+    ← Back to Home
+</a>
+
+    <a href="#overview" class="page-button">
+        Back to Overview ↑
+    </a>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <p>
+        Digital VLSI Mini Project |
+        <span>SPI Master Interface</span>
+    </p>
+
+    <p>
+        School of Electronics and Communication Engineering
+    </p>
+
+</footer>
+
+</body>
+
+</html>

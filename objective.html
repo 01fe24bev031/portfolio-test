@@ -1,0 +1,500 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>02 - Project Objectives | SPI Master Interface</title>
+
+  <style>
+    :root {
+      --navy: #071426;
+      --navy-light: #081a30;
+      --navy-card: #10243c;
+      --cyan: #00d9ff;
+      --cyan-blue: #00c8f0;
+      --white: #ffffff;
+      --light-text: #dceaf7;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      line-height: 1.7;
+    }
+
+    /* Navigation */
+    nav {
+      background: var(--navy-light);
+      border-bottom: 2px solid var(--cyan);
+      padding: 18px 6%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      color: var(--cyan);
+      font-size: 17px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 22px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: var(--white);
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: var(--cyan);
+    }
+
+    /* Hero */
+    .hero {
+      padding: 65px 8%;
+      background: linear-gradient(125deg, #071426, #10243c, #087b9c);
+      border-bottom: 4px solid var(--cyan);
+    }
+
+    .eyebrow {
+      color: var(--cyan);
+      font-size: 13px;
+      font-weight: bold;
+      letter-spacing: 3px;
+      margin-bottom: 12px;
+    }
+
+    .hero h1 {
+      font-size: clamp(32px, 5vw, 48px);
+      line-height: 1.2;
+      margin-bottom: 18px;
+    }
+
+    .hero p {
+      max-width: 760px;
+      color: var(--light-text);
+      font-size: 16px;
+    }
+
+    /* Main content */
+    main {
+      width: min(1100px, 92%);
+      margin: 35px auto 55px;
+    }
+
+    section {
+      padding: 30px;
+      margin-bottom: 28px;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .section-number {
+      font-size: 12px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      font-size: 26px;
+      line-height: 1.3;
+      margin-bottom: 16px;
+    }
+
+    p {
+      margin-bottom: 12px;
+    }
+
+    /* Introduction: dark blue */
+    .intro {
+      background: #10243c;
+      border: 1px solid #214568;
+      border-left: 5px solid var(--cyan);
+    }
+
+    .intro .section-number {
+      color: var(--cyan);
+    }
+
+    .intro p {
+      color: var(--light-text);
+    }
+
+    /* Objectives: visibly cyan blue */
+    .objectives {
+      background: var(--cyan-blue);
+      color: #071426;
+      border: 1px solid var(--cyan);
+    }
+
+    .objectives .section-number {
+      color: #073b57;
+    }
+
+    .objectives h2 {
+      color: #071426;
+    }
+
+    .objectives > p {
+      color: #12364a;
+    }
+
+    .objective-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 22px;
+    }
+
+    .objective-card {
+      background: #071a30;
+      color: var(--white);
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      border-radius: 9px;
+      padding: 22px;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .objective-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--white);
+    }
+
+    .objective-card .card-number {
+      color: var(--cyan);
+      font-size: 12px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      margin-bottom: 9px;
+    }
+
+    .objective-card h3 {
+      color: var(--white);
+      font-size: 18px;
+      line-height: 1.4;
+      margin-bottom: 10px;
+    }
+
+    .objective-card p {
+      color: #dceaf7;
+      font-size: 14px;
+      margin-bottom: 0;
+    }
+
+    /* Overall aim: dark blue with cyan highlight */
+    .main-aim {
+      background: #10243c;
+      border: 1px solid #214568;
+      border-top: 4px solid var(--cyan);
+    }
+
+    .main-aim .section-number {
+      color: var(--cyan);
+    }
+
+    .main-aim p {
+      color: var(--light-text);
+    }
+
+    .aim-highlight {
+      background: #00c8f0;
+      color: #071426;
+      padding: 19px 21px;
+      margin-top: 18px;
+      border-radius: 7px;
+      font-weight: bold;
+    }
+
+    /* Learning outcomes: cyan-blue section */
+    .learning {
+      background: #087b9c;
+      border: 1px solid #00c8f0;
+    }
+
+    .learning .section-number {
+      color: #b7f5ff;
+    }
+
+    .learning h2 {
+      color: var(--white);
+    }
+
+    .learning-list {
+      list-style: none;
+      margin-top: 18px;
+    }
+
+    .learning-list li {
+      background: #071a30;
+      color: var(--white);
+      padding: 13px 16px 13px 43px;
+      border-radius: 7px;
+      margin-bottom: 10px;
+      position: relative;
+      border: 1px solid #24506c;
+    }
+
+    .learning-list li::before {
+      content: "✓";
+      color: var(--cyan);
+      position: absolute;
+      left: 16px;
+      font-weight: bold;
+    }
+
+    /* Previous and next page links */
+    .page-navigation {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+
+    .page-navigation a {
+      display: inline-block;
+      background: var(--cyan);
+      color: #071426;
+      padding: 12px 19px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .page-navigation a:hover {
+      background: var(--white);
+    }
+
+    /* Footer */
+    footer {
+      background: #04101f;
+      border-top: 2px solid var(--cyan);
+      padding: 25px 15px;
+      text-align: center;
+      color: #dceaf7;
+      font-size: 13px;
+    }
+
+    footer span {
+      color: var(--cyan);
+    }
+
+    @media (max-width: 650px) {
+      nav {
+        padding: 17px 5%;
+      }
+
+      nav ul {
+        gap: 14px;
+      }
+
+      .hero {
+        padding: 45px 6%;
+      }
+
+      main {
+        width: 94%;
+      }
+
+      section {
+        padding: 22px 17px;
+      }
+
+      .objective-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .page-navigation {
+        flex-direction: column;
+      }
+
+      .page-navigation a {
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <div class="logo">SPI MASTER INTERFACE</div>
+
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="overview.html">Overview</a></li>
+      <li><a href="objectives.html" class="active">Objectives</a></li>
+    </ul>
+  </nav>
+
+  <header class="hero">
+    <div class="eyebrow">02 — PROJECT OBJECTIVES</div>
+    <h1>Project Objectives</h1>
+    <p>
+      Defining the technical goals, implementation targets, and learning
+      outcomes of the SPI Master Interface mini project.
+    </p>
+  </header>
+
+  <main>
+
+    <section class="intro">
+      <div class="section-number">02.1 — INTRODUCTION</div>
+      <h2>Purpose of the Project</h2>
+
+      <p>
+        The SPI Master Interface project demonstrates the working
+        principle of Serial Peripheral Interface communication through
+        a simulated digital hardware system.
+      </p>
+
+      <p>
+        The project focuses on serial data transmission, clock
+        synchronization, device selection, and the interaction between
+        master and slave components. The circuit is developed and tested
+        using Proteus simulation.
+      </p>
+    </section>
+
+    <section class="objectives">
+      <div class="section-number">02.2 — TECHNICAL OBJECTIVES</div>
+      <h2>Key Objectives</h2>
+
+      <p>
+        The project is designed around the following technical objectives.
+      </p>
+
+      <div class="objective-grid">
+
+        <article class="objective-card">
+          <div class="card-number">OBJECTIVE 01</div>
+          <h3>Understand SPI Communication</h3>
+          <p>
+            Understand the SPI protocol and the roles of SCLK, MOSI,
+            MISO, and chip-select signals in serial communication.
+          </p>
+        </article>
+
+        <article class="objective-card">
+          <div class="card-number">OBJECTIVE 02</div>
+          <h3>Design the Master Interface</h3>
+          <p>
+            Develop a digital hardware arrangement that generates clock
+            pulses and coordinates communication between master and
+            slave sections.
+          </p>
+        </article>
+
+        <article class="objective-card">
+          <div class="card-number">OBJECTIVE 03</div>
+          <h3>Implement Serial Data Transfer</h3>
+          <p>
+            Demonstrate parallel-to-serial data conversion and observe
+            the transfer of digital data through the interface.
+          </p>
+        </article>
+
+        <article class="objective-card">
+          <div class="card-number">OBJECTIVE 04</div>
+          <h3>Simulate and Verify the Circuit</h3>
+          <p>
+            Use Proteus to test circuit operation, observe signal
+            transitions, and identify connectivity or communication
+            issues.
+          </p>
+        </article>
+
+        <article class="objective-card">
+          <div class="card-number">OBJECTIVE 05</div>
+          <h3>Observe Digital Outputs</h3>
+          <p>
+            Use LEDs and simulation instruments to observe output
+            patterns and understand how digital information is
+            represented by logic states.
+          </p>
+        </article>
+
+        <article class="objective-card">
+          <div class="card-number">OBJECTIVE 06</div>
+          <h3>Explore Hardware Applications</h3>
+          <p>
+            Understand how serial interfaces support communication
+            between digital controllers and peripheral devices,
+            including SPI-compatible sensors.
+          </p>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="main-aim">
+      <div class="section-number">02.3 — OVERALL AIM</div>
+      <h2>What the Project Achieves</h2>
+
+      <p>
+        The overall aim is to build an understanding of SPI-based
+        communication by developing and simulating a digital interface
+        using basic hardware components.
+      </p>
+
+      <div class="aim-highlight">
+        This project connects digital communication theory with circuit
+        implementation and simulation-based verification, providing a
+        foundation for understanding peripheral interfaces in digital
+        systems.
+      </div>
+    </section>
+
+    <section class="learning">
+      <div class="section-number">02.4 — LEARNING OUTCOMES</div>
+      <h2>Knowledge and Skills Gained</h2>
+
+      <ul class="learning-list">
+        <li>Understand the architecture and signals of the SPI protocol.</li>
+        <li>Learn the purpose of clock generation and serial data transfer.</li>
+        <li>Understand the role of shift registers in digital communication.</li>
+        <li>Develop circuit-building and debugging skills using Proteus.</li>
+        <li>Observe digital signal behavior through simulation instruments.</li>
+        <li>Relate communication protocols to practical digital VLSI systems.</li>
+      </ul>
+    </section>
+
+    <div class="page-navigation">
+      <a href="overview.html">← Previous: Project Overview</a>
+      <a href="protocol.html">Next: SPI Protocol →</a>
+    </div>
+
+  </main>
+
+  <footer>
+    Digital VLSI Mini Project |
+    <span>SPI Master Interface</span> |
+    KLE Technological University, Hubballi
+  </footer>
+
+</body>
+</html>
